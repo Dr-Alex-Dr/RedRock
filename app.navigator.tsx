@@ -5,7 +5,6 @@ import { Icon } from 'react-native-paper';
 import { DocumentScanner } from './src/componets/icons/DocumentScanner';
 import { ClassIcon } from './src/componets/icons/ClassIcon';
 import { TestIcon } from './src/componets/icons/TestIcon';
-// import './src/assets/document_scanner.svg'
 
 import { CameraScreen } from './src/pages/CameraScreen';
 import { Groups } from './src/pages/Groups';
@@ -14,6 +13,7 @@ import { Tests } from './src/pages/Tests';
 
 import { CreateGroup } from './src/pages/CreateGroup';
 import { CreateTest } from './src/pages/CreateTest';
+import { Students } from './src/pages/Students';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +38,7 @@ const GroupsStackScreen = () => (
     >
     <groupsStack.Screen name="Список классов" component={Groups} />
     <groupsStack.Screen name="Создать класс" component={CreateGroup} />
+    <groupsStack.Screen name="Ученики" component={Students} />
   </groupsStack.Navigator>
 );
 
@@ -63,6 +64,7 @@ const TestsStackScreen = () => (
 const AppNavigator = () => {
   return (
     <Tab.Navigator
+    initialRouteName="groups"
     screenOptions={{
       tabBarStyle: {
         backgroundColor: '#F9F9FC',

@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 
 export function PlusButton({onPress}: any) {
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity  onPress={onPress}  activeOpacity={0.8}>
             <View style={{ width: 60, height: 60 }}>
             <PlusIcon />
             </View>
