@@ -1,9 +1,34 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View } from 'react-native';
 import { HelperText, TextInput, Button, Text } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function Login() {
-    const [text, setText] = React.useState('');
+import { submitLogin } from '../api/submitLogin';
+
+import { InputComponent } from '../componets/InputComponent';
+import { ButtonComponent } from '../componets/ButtonComponent';
+
+const saveTokenToStorage = async (token: any) => {
+    try {
+      await AsyncStorage.setItem('userToken', token);
+      console.log('Token сохранен успешно!');
+    } catch (error) {
+      console.error('Ошибка при сохранении токена:', error);
+    }
+  };
+
+export function Login({route, navigation}: any) { 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    // useEffect(() => {
+    //     setEmail(route.params == undefined ? '' : route.params.email)
+    //     setPassword(route.params == undefined ? '' : route.params.password)
+    // }, [])
+    
+
+    const [answer, setAnswer] = useState('');
+    const [typeAnswer, setTypeAnswer] = useState('');
 
     return (
         <View>
@@ -11,55 +36,60 @@ export function Login() {
             variant="headlineMedium"
             style={{fontWeight: '500'}}
         >Войдите или зарегистрируйтесь</Text>
-        <TextInput
-            mode="outlined"
-            underlineColorAndroid='transparent'
-            label="Введите адрес эл.почты"
-            placeholder="Введите адрес эл.почты" 
-            onChangeText={text => setText(text)}  
-            outlineColor='#7F8480'
-            activeOutlineColor='#7F8480'
-            textColor='#1D1D1Ddfdf'
-            style={{fontSize: 18, fontFamily: 'Roboto', backgroundColor: 'transparent', borderColor: 'red'}}
-            multiline={false}
-            activeUnderlineColor='white'
+
+        <InputComponent 
+            text='Введите адрес эл.почты' 
+            onChangeText={(email: any) => setEmail(email)}
+            
         />
-        <TextInput
-            mode="outlined"
-            underlineColorAndroid='transparent'
-            label="Введите пароль"
-            placeholder="Введите пароль" 
-            onChangeText={text => setText(text)}  
-            outlineColor='#7F8480'
-            activeOutlineColor='#7F8480'
-            textColor='#1D1D1Ddfdf'
-            style={{fontSize: 18, fontFamily: 'Roboto', backgroundColor: 'transparent', borderColor: 'red'}}
-            multiline={false}
-            activeUnderlineColor='white'
+        <InputComponent 
+            text='Введите пароль' 
+            onChangeText={(password: any) => setPassword(password)}
+            password={true}
         />
-          <Button 
-            mode="contained" 
-            onPress={() => console.log('Войти')}
-            textColor='#fff'
-            buttonColor='#870D1A'
-            style={{borderRadius: 5}}
-            labelStyle={{fontSize: 18}}
-            >
-            Войти
-        </Button>
-        
-        <HelperText type="error" visible={true}>
-            Email address is invalid!
+
+        <ButtonComponent 
+            text='Войти'
+            onPress={() => {
+                submitLogin({email, password})
+                .then((res: any) => {
+                    if (res.status == 201) {
+                        setTypeAnswer('success')
+                    } else {
+                        setTypeAnswer('error')
+                    }
+                    return res.json()
+                })
+                .then((msg: any) => {
+                    saveTokenToStorage(msg.access_token)
+                    // console.log(route.params.setIsLogin)
+                    // console.log('work')
+                    route.params.setIsLogin(true)
+                    setAnswer(msg.message)
+                })
+                .catch((err: any) => {
+                    console.log('err ' + err)
+                })
+            }}
+        />
+ 
+        <HelperText type={typeAnswer == 'error' ? 'error' : 'info'} visible={true}>
+            {answer}
         </HelperText>
 
         <Text 
             variant="labelLarge"
             style={{fontWeight: '400'}}
         >Нет аккаунта?</Text>
-        <Text 
-            variant="labelLarge"
-            style={{fontWeight: '400', color: '#780000'}}
-        >Зарегистрироваться</Text>
+        <Button 
+                mode="text" 
+                onPress={() => navigation.navigate('Registration')}
+                textColor='#780000'
+                labelStyle={{fontSize: 16}}
+                >
+                Зарегистрироваться
+            </Button>
+        
     </View>
     )
 }
