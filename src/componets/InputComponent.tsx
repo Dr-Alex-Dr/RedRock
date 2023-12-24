@@ -19,7 +19,7 @@ export function InputComponent({text, onChangeText, password, value}: any) {
             onChangeText={onChangeText}  
             outlineColor='#7F8480'
             activeOutlineColor='#7F8480'
-            textColor='#1D1D1Ddfdf'
+            textColor='#1D1D1D'
             style={{fontSize: 18, fontFamily: 'Roboto', backgroundColor: 'transparent', borderColor: 'red'}}
             multiline={false}
             activeUnderlineColor='white'

@@ -31,7 +31,7 @@ export function Login({route, navigation}: any) {
     const [typeAnswer, setTypeAnswer] = useState('');
 
     return (
-        <View>
+        <View style={{paddingLeft: 16, paddingRight: 16, backgroundColor: '#fff', height: '100%'}}>
         <Text 
             variant="headlineMedium"
             style={{fontWeight: '500'}}

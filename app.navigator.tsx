@@ -13,7 +13,9 @@ import { Tests } from './src/pages/Tests';
 
 import { CreateGroup } from './src/pages/CreateGroup';
 import { CreateTest } from './src/pages/CreateTest';
+import { TestForGroup } from './src/pages/TestForGroup';
 import { Students } from './src/pages/Students';
+import { AddStudents } from './src/pages/AddStudents';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +41,7 @@ const GroupsStackScreen = () => (
     <groupsStack.Screen name="Список классов" component={Groups} />
     <groupsStack.Screen name="Создать класс" component={CreateGroup} />
     <groupsStack.Screen name="Ученики" component={Students} />
+    <groupsStack.Screen name="Добавить ученика" component={AddStudents} />
   </groupsStack.Navigator>
 );
 
@@ -58,6 +61,8 @@ const TestsStackScreen = () => (
   }}
   >
     <testsStack.Screen name="Тесты для класса" component={Tests} />
+    <testsStack.Screen name="Тесты" component={TestForGroup} />
+    <testsStack.Screen name="Создать тест" component={CreateTest} />
   </testsStack.Navigator>
 );
 

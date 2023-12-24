@@ -8,13 +8,6 @@ import { CardClass } from '../componets/CardClass';
 export function Groups({navigation}: any) {
     const [groups, setGroups] = useState([])
 
-    useEffect(() => {   
-        allGroup()
-        .then((res: any) => {
-            setGroups(res)
-        })
-    }, [])
-
     useFocusEffect(
         useCallback(() => {
             allGroup()
@@ -26,14 +19,18 @@ export function Groups({navigation}: any) {
       );
 
     return (
-        <ScrollView style={{backgroundColor: '#fff'}}>
-            <PlusButton 
+    <View style={{backgroundColor: '#fff', height: '100%'}}>
+         <PlusButton 
             onPress={() => navigation.navigate('Создать класс')}
             />
+        <ScrollView >
+           
             {
                 groups.length > 0 ? (
                     groups.map((item: any) => ( 
-                        <TouchableOpacity onPress={() => {navigation.navigate('Ученики')}}  activeOpacity={0.8}>         
+                        <TouchableOpacity onPress={() => {navigation.navigate('Ученики',  {
+                            groupId: item.id
+                        })}}  activeOpacity={0.8}>         
                             <CardClass name={item.name}/>
                         </TouchableOpacity>
                     ))
@@ -43,5 +40,6 @@ export function Groups({navigation}: any) {
             }
             
         </ScrollView>
+    </View>
     )
 }

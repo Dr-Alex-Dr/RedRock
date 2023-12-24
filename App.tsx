@@ -12,6 +12,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [isLogin, setIsLogin] = useState(false)
 
+
   useEffect(() => {
     AsyncStorage.getItem('userToken')
     .then(token => {
@@ -23,7 +24,7 @@ export default function App() {
   
   return (
     <>
-      {isLogin ? (
+      {false ? (
       <NavigationContainer >
         <AppNavigator />
       </NavigationContainer>
