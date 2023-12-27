@@ -1,48 +1,56 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { View, Text, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { PlusButton } from '../componets/PlusButton';
 import { useFocusEffect } from '@react-navigation/native';
-import { Avatar, Card, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton, Text, Title } from 'react-native-paper';
+import { allQuizzes } from '../api/allQuizzes';
+import { TestCard } from '../componets/TestCard';
 
 export function TestForGroup({navigation}: any) {
     const [tests, setTests] = useState([])
 
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         allGroup()
-    //         .then((res: any) => {
-    //             console.log(res)
-    //             setGroups(res)
-    //         })
-    //     }, [])
-    //   );
+    useFocusEffect(
+        useCallback(() => {
+            allQuizzes()
+            .then((res: any) => {
+                console.log('all tests ' + res[0].content.answers)
+                setTests(res)
+            })
+        }, [])
+      );
 
     return (
 
-    <View style={{backgroundColor: '#fff', height: '100%'}}>
+    <View style={{
+        paddingLeft: 16,
+        paddingRight: 16,
+        backgroundColor: '#fff', 
+        height: '100%'}}>
          <PlusButton onPress={() => navigation.navigate('Создать тест')} />
-        <ScrollView >
+        
            
             {
                 tests.length > 0 ? (
+                <ScrollView >
+                    {
                     tests.map((item: any) => ( 
-                        <TouchableOpacity onPress={() => {navigation.navigate('Ученики',  {
-                            groupId: item.id
+                        <TouchableOpacity onPress={() => {navigation.navigate('Результирующие ключи',  {
+                            groupId: item.id,
+                            keys: item.content.answers
                         })}}  activeOpacity={0.8}>         
-                            <Card.Title
-                                title="Признаки треугольника"
-                                subtitle="20 вопросов"
-                                left={(props) => <Avatar.Icon {...props} icon="folder" />}
-                                right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => {}} />}
-                            />
+                            <TestCard name={item.title}/>
                         </TouchableOpacity>
                     ))
+                }
+                </ScrollView>
                 ) : (
-                    <Text>Массив groups пуст</Text>
+                    <View>
+                        <Image source={require('../assets/peeple.png')}/>
+                        <Text style={{textAlign: 'center', paddingTop: 8}} variant="headlineMedium">Вы ещё не{'\n'}добавляли тесты</Text>
+                    </View>
                 )
             }
             
-        </ScrollView>
     </View>
     )
 }

@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { PlusButton } from '../componets/PlusButton';
 import { allStudents } from '../api/allStudents';
-import { List } from 'react-native-paper';
+import { List, Text } from 'react-native-paper';
 
 function separateName(name: string) {
     return name.split('')[0]
@@ -30,12 +30,14 @@ export function Students({route, navigation}: any) {
                     groupId: route.params.groupId
                 })}}
                 />
-            <ScrollView style={{backgroundColor: '#fff'}}>           
+                      
                 {
                     students.length > 0 ? (
-                        students.map((item: any) => ( 
-                           
+                    <ScrollView style={{backgroundColor: '#fff'}}> 
+{
+                        students.map((item: any) => (         
                             <List.Item
+                            key={item.id}
                             style={{marginLeft: 30}}
                             title={`${item.first_name} ${item.last_name}`}
                             titleStyle={{fontSize: 18}}
@@ -51,12 +53,16 @@ export function Students({route, navigation}: any) {
                             }}><Text style={{color: '#fff', fontSize: 18}}>{separateName(item.first_name)}</Text></View>}
                           />
                         ))
+                    }
+                    </ScrollView>
                     ) : (
-                        <Text>Массив groups пуст</Text>
+                        <View>
+                        <Image source={require('../assets/peeple.png')}/>
+                        <Text style={{textAlign: 'center', paddingTop: 8}} variant="headlineMedium">Вы ещё не{'\n'}добавляли учеников</Text>
+                    </View>
                     )
                 }
                 
-            </ScrollView>
         </View>
         )
 }

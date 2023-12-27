@@ -7,8 +7,8 @@ export function ButtonComponent({text, onPress}: any) {
                 onPress={onPress}  
                 textColor='#fff'
                 buttonColor='#870D1A'
-                style={{borderRadius: 5}}
-                labelStyle={{fontSize: 18}}>
+                style={{borderRadius: 5, marginTop: 25, padding: 5}}
+                labelStyle={{fontSize: 18, fontFamily: 'Roboto-Medium'}}>
                 {text}
         </Button>
     )

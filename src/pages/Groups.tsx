@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { View, Text, Button, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Button, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { Text } from 'react-native-paper';
 import { PlusButton } from '../componets/PlusButton';
 import { useFocusEffect } from '@react-navigation/native';
 import { allGroup } from '../api/allGroup';
 import { CardClass } from '../componets/CardClass';
+
 
 export function Groups({navigation}: any) {
     const [groups, setGroups] = useState([])
@@ -17,29 +19,37 @@ export function Groups({navigation}: any) {
             })
         }, [])
       );
-
+  
     return (
-    <View style={{backgroundColor: '#fff', height: '100%'}}>
-         <PlusButton 
-            onPress={() => navigation.navigate('Создать класс')}
-            />
-        <ScrollView >
-           
+    <View style={{
+        backgroundColor: '#fff', 
+        height: '100%',
+        paddingLeft: 16, 
+        paddingRight: 16, 
+        }}>
+
+        <PlusButton onPress={() => navigation.navigate('Создать класс')}/>            
             {
                 groups.length > 0 ? (
+                <ScrollView showsVerticalScrollIndicator={false}> 
+                    {
                     groups.map((item: any) => ( 
-                        <TouchableOpacity onPress={() => {navigation.navigate('Ученики',  {
+                        <TouchableOpacity key={item.id} onPress={() => {navigation.navigate('Ученики',  {
                             groupId: item.id
                         })}}  activeOpacity={0.8}>         
                             <CardClass name={item.name}/>
                         </TouchableOpacity>
                     ))
+                    }
+                </ScrollView>
                 ) : (
-                    <Text>Массив groups пуст</Text>
+                    <View>
+                        <Image source={require('../assets/peeple.png')}/>
+                        <Text style={{textAlign: 'center', paddingTop: 8}} variant="headlineMedium">Вы ещё не{'\n'}добавляли классы</Text>
+                    </View>
                 )
-            }
-            
-        </ScrollView>
+            }         
+        
     </View>
     )
 }

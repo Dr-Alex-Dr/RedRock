@@ -10,7 +10,12 @@ export function AddStudents({route, navigation}: any) {
     const [lastName, setLastName] = useState('')
 
     return (
-        <View>
+        <View style={{
+            paddingLeft: 16, 
+            paddingRight: 16, 
+            backgroundColor: '#fff', 
+            height: '100%'
+        }}>
             <InputComponent 
                 text='Введите имя ученика'
                 onChangeText={(firtName: any) => {setFirtName(firtName)}}

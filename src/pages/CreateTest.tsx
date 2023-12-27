@@ -4,22 +4,30 @@ import { InputComponent } from '../componets/InputComponent';
 import { ButtonComponent } from '../componets/ButtonComponent';
 
 export function CreateTest({navigation}: any) {
-    const [name, setName] = useState('')
+    const [name, setName] = useState('');
+    const [countKeys, setCountKeys] = useState(0);
 
     return (
-        <View>
+        <View style={{
+            paddingLeft: 16, 
+            paddingRight: 16, 
+            backgroundColor: '#fff', 
+            height: '100%'}}>
             <InputComponent 
                 text='Введите название теста'
                 onChangeText={(name: any) => {setName(name)}}
             />
             <InputComponent 
                 text='Введите количество вопросов'
-                onChangeText={(name: any) => {setName(name)}}
+                onChangeText={(countKeys: any) => {setCountKeys(parseInt(countKeys))}}
             />
             <ButtonComponent 
-                text='Создать'
+                text='Продолжить'
                 onPress={() => {
-                    
+                    navigation.navigate('Ключи для теста', {
+                        name,
+                        countKeys 
+                    })
                 }}
             />
         </View>

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Icon } from 'react-native-paper';
 import { DocumentScanner } from './src/componets/icons/DocumentScanner';
 import { ClassIcon } from './src/componets/icons/ClassIcon';
 import { TestIcon } from './src/componets/icons/TestIcon';
@@ -14,8 +13,11 @@ import { Tests } from './src/pages/Tests';
 import { CreateGroup } from './src/pages/CreateGroup';
 import { CreateTest } from './src/pages/CreateTest';
 import { TestForGroup } from './src/pages/TestForGroup';
+import { KeysTest } from './src/pages/KeysTest';
 import { Students } from './src/pages/Students';
 import { AddStudents } from './src/pages/AddStudents';
+import { PrintTest } from './src/pages/PrintTest';
+import { TestKeys } from './src/pages/TestKeys';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,11 +60,15 @@ const TestsStackScreen = () => (
     },
     headerShadowVisible: false,
     headerTitleAlign: 'center',
+    
   }}
   >
     <testsStack.Screen name="Тесты для класса" component={Tests} />
     <testsStack.Screen name="Тесты" component={TestForGroup} />
     <testsStack.Screen name="Создать тест" component={CreateTest} />
+    <testsStack.Screen name="Ключи для теста" component={KeysTest} />
+    <testsStack.Screen name="Результирующие ключи" component={TestKeys} />
+    <testsStack.Screen options={{ headerShown: false}} name="Распечатать тест" component={PrintTest}/>
   </testsStack.Navigator>
 );
 
@@ -83,7 +89,7 @@ const AppNavigator = () => {
     }}
     >
       <Tab.Screen 
-        name="cameraScreen" 
+        name="CameraScreen" 
         component={CameraScreen} 
         options={{ 
           headerShown: false,

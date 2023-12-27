@@ -9,7 +9,12 @@ export function CreateGroup({navigation}: any) {
     const [name, setName] = useState('')
 
     return (
-        <View>
+        <View style={{
+            backgroundColor: '#fff', 
+            height: '100%',
+            paddingLeft: 16, 
+            paddingRight: 16, 
+            }}>
             <InputComponent 
                 text='Введите название класса'
                 onChangeText={(name: any) => {setName(name)}}

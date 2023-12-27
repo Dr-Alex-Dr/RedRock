@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, StyleSheet } from 'react-native';
 import AppNavigator from './app.navigator';
 import { Registration } from './src/pages/Registration';
 import { Login } from './src/pages/Login';
@@ -15,16 +14,24 @@ export default function App() {
 
   useEffect(() => {
     AsyncStorage.getItem('userToken')
-    .then(token => {
-      if (token?.length != 0) {
-        setIsLogin(true)
-      }
+    .then((token: any) => {
+        if (token == null) {
+          setIsLogin(false)
+        } else if (token == '') {
+          setIsLogin(false)
+        } else {
+          setIsLogin(true)
+        }
     })
-  }, [])
+    // .then(() => {
+    //   AsyncStorage.setItem('userToken', '')
+    // })
+    
+  })
   
   return (
     <>
-      {false ? (
+      {isLogin ? (
       <NavigationContainer >
         <AppNavigator />
       </NavigationContainer>

@@ -16,12 +16,20 @@ export function Registration({navigation}: any) {
     const [typeAnswer, setTypeAnswer] = useState('');
 
     return (
-        <View>
+        <View style={{
+            paddingLeft: 16, 
+            paddingRight: 16, 
+            backgroundColor: '#fff', 
+            height: '100%'
+        }}>
+          
             <Text 
-                variant="headlineMedium"
-                style={{fontWeight: '500'}}>
-                Создать новый аккаунт
-            </Text>
+            variant="headlineLarge"
+            style={{
+                fontFamily: 'Roboto-Medium',
+                marginTop: 60
+            }}
+        >Создать{'\n'}новый аккаунт</Text>
 
             <InputComponent 
                 text='Введите имя пользователя'
@@ -67,18 +75,20 @@ export function Registration({navigation}: any) {
                 {answer}
             </HelperText>
 
-            <Text 
-                variant="labelLarge"
-                style={{fontWeight: '400'}}
-            >Есть учётная запись?</Text>
-            <Button 
-                mode="text" 
-                onPress={() => navigation.navigate('Login')}
-                textColor='#780000'
-                labelStyle={{fontSize: 16}}
-                >
-                Войти
-            </Button>
+            <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                <Text 
+                    variant="labelLarge"
+                    style={{fontFamily: 'Roboto-Regular', fontSize: 16}}>
+                        Есть учётная запись?
+                </Text>
+                <Button 
+                    mode="text" 
+                    onPress={() => navigation.navigate('Login')}
+                    textColor='#780000'
+                    labelStyle={{fontSize: 16}}>
+                    Войти
+                </Button>
+            </View> 
         </View>
     )
 }

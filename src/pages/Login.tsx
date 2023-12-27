@@ -31,16 +31,23 @@ export function Login({route, navigation}: any) {
     const [typeAnswer, setTypeAnswer] = useState('');
 
     return (
-        <View style={{paddingLeft: 16, paddingRight: 16, backgroundColor: '#fff', height: '100%'}}>
+        <View style={{
+            paddingLeft: 16, 
+            paddingRight: 16, 
+            backgroundColor: '#fff', 
+            height: '100%'
+        }}>
         <Text 
-            variant="headlineMedium"
-            style={{fontWeight: '500'}}
+            variant="headlineLarge"
+            style={{
+                fontFamily: 'Roboto-Medium',
+                marginTop: 60
+            }}
         >Войдите или зарегистрируйтесь</Text>
 
         <InputComponent 
             text='Введите адрес эл.почты' 
             onChangeText={(email: any) => setEmail(email)}
-            
         />
         <InputComponent 
             text='Введите пароль' 
@@ -62,10 +69,8 @@ export function Login({route, navigation}: any) {
                 })
                 .then((msg: any) => {
                     saveTokenToStorage(msg.access_token)
-                    // console.log(route.params.setIsLogin)
-                    // console.log('work')
-                    route.params.setIsLogin(true)
                     setAnswer(msg.message)
+                    route.params.setIsLogin(true)            
                 })
                 .catch((err: any) => {
                     console.log('err ' + err)
@@ -77,18 +82,20 @@ export function Login({route, navigation}: any) {
             {answer}
         </HelperText>
 
-        <Text 
-            variant="labelLarge"
-            style={{fontWeight: '400'}}
-        >Нет аккаунта?</Text>
-        <Button 
+        <View style={{display: 'flex', flexDirection:'row', alignItems: 'center', justifyContent: 'space-between'}}>
+            <Text 
+                variant="labelLarge"
+                style={{fontFamily: 'Roboto-Regular', fontSize: 16}}>
+                    Нет аккаунта?
+            </Text>
+            <Button 
                 mode="text" 
                 onPress={() => navigation.navigate('Registration')}
                 textColor='#780000'
-                labelStyle={{fontSize: 16}}
-                >
+                labelStyle={{fontSize: 16}}>
                 Зарегистрироваться
             </Button>
+        </View> 
         
     </View>
     )
