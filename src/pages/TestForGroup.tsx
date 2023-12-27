@@ -13,7 +13,7 @@ export function TestForGroup({navigation}: any) {
         useCallback(() => {
             allQuizzes()
             .then((res: any) => {
-                console.log('all tests ' + res[0].content.answers)
+               
                 setTests(res)
             })
         }, [])
@@ -33,8 +33,8 @@ export function TestForGroup({navigation}: any) {
                 tests.length > 0 ? (
                 <ScrollView >
                     {
-                    tests.map((item: any) => ( 
-                        <TouchableOpacity onPress={() => {navigation.navigate('Результирующие ключи',  {
+                    tests.map((item: any, index) => ( 
+                        <TouchableOpacity key={index} onPress={() => {navigation.navigate('Результирующие ключи',  {
                             groupId: item.id,
                             keys: item.content.answers
                         })}}  activeOpacity={0.8}>         

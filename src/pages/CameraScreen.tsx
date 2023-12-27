@@ -5,18 +5,19 @@ import { getAnswers } from '../api/getAnswers';
 
 export function CameraScreen() {
   const cameraRef = useRef<any>(null);
-  const [photoUri, setPhotoUri] = useState(null);
+  const [answers, setAnswers] = useState('');
 
-  const takePicture = async () => {
+  function takePicture() {
     if (cameraRef.current) {
       const options = { quality: 0.5, base64: true };
-      const data = await cameraRef.current.takePictureAsync(options);
-      setPhotoUri(data.uri);
 
-      console.log('take photo')
-      getAnswers(data.uri)
-      .then((res: any) => {
-        console.log('answers ' + res)
+      cameraRef.current.takePictureAsync(options)
+      .then((data: any) => {
+          getAnswers(data.uri)
+          .then((res: any) => {
+            setAnswers(res.result)
+            console.log('answers ' + res.result)
+          })
       })
     }
   };
@@ -48,6 +49,7 @@ export function CameraScreen() {
         </TouchableOpacity>
         </View>
       </RNCamera>
+      <Text>{answers}</Text>
     </View>
   );
 };

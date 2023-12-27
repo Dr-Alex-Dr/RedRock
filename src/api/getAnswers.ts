@@ -17,12 +17,12 @@ export function getAnswers(urlImage: any) {
         body: formData,
       })
         .then((res: any) => {
-            console.log(res.json())
+            console.log(res)
             return res.json()
         })
         .then((res: any) => {
-            console.log('result ' + res)
-            return res
+            console.log('result ' + res.result)
+            resolve(res)
         })
         .catch((error) => {
           reject(error);
