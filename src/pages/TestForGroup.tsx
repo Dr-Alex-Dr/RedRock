@@ -13,7 +13,6 @@ export function TestForGroup({navigation}: any) {
         useCallback(() => {
             allQuizzes()
             .then((res: any) => {
-               
                 setTests(res)
             })
         }, [])

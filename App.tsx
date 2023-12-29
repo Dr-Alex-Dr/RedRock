@@ -13,6 +13,7 @@ export default function App() {
 
 
   useEffect(() => {
+    console.log('dataS')
     AsyncStorage.getItem('userToken')
     .then((token: any) => {
         if (token == null) {

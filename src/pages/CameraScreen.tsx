@@ -6,6 +6,7 @@ import { getAnswers } from '../api/getAnswers';
 export function CameraScreen() {
   const cameraRef = useRef<any>(null);
   const [answers, setAnswers] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
 
   function takePicture() {
     if (cameraRef.current) {
@@ -17,6 +18,7 @@ export function CameraScreen() {
           .then((res: any) => {
             setAnswers(res.result)
             console.log('answers ' + res.result)
+            setIsVisible(true)
           })
       })
     }
@@ -49,7 +51,25 @@ export function CameraScreen() {
         </TouchableOpacity>
         </View>
       </RNCamera>
-      <Text>{answers}</Text>
+      <View style={{width: '100%', height: 700, position: 'absolute', display: isVisible ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{
+          width: 300, 
+          height: 100, 
+          position: 'absolute', 
+          backgroundColor: '#fff', 
+          borderRadius: 15,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderColor: '#000',
+          borderWidth: 2
+
+          }}>
+          <Text style={{fontSize: 22, fontWeight: 'bold', color: '#000'}}>Alex L</Text>
+          <Text style={{fontSize: 22, fontWeight: 'bold', color: '#000'}}>7/8</Text>
+        </View>
+      </View>
+     
     </View>
   );
 };
